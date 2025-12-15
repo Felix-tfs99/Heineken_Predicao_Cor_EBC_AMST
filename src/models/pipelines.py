@@ -58,8 +58,11 @@ def build_lgbm_pipeline(preprocess: ColumnTransformer, random_state: int) -> Pip
             random_state=random_state,
             n_estimators=300,
             learning_rate=0.05,
+            min_child_samples=5, 
+            min_split_gain=0.0,   
             subsample=0.8,
             colsample_bytree=0.8,
             n_jobs=-1,
+            verbose=-1,
         )),
     ])

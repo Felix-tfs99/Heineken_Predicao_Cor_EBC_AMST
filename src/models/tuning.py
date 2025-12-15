@@ -88,7 +88,7 @@ def tune_lgbm(
     random_state: int,
     n_iter: int = 40,
     n_splits: int = 5,
-    verbose: int = 2,
+    verbose: int = -1,
 ) -> RandomizedSearchCV:
     lgbm_pipe = build_lgbm_pipeline(preprocess, random_state)
 
