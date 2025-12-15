@@ -7,7 +7,7 @@ O projeto foi estruturado com foco em:
 - boas práticas de modelagem e validação,
 - organização de código reutilizável,
 - qualidade e reprodutibilidade,
-- e narrativa técnica adequada para uso profissional e entrevistas.
+- e narrativa técnica adequada.
 
 ---
 
