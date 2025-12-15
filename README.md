@@ -1,2 +1,12 @@
-# Heineken-Predi-o-de-Cor-do-Mosto-EBC-Produto-AMST
-Este repositório apresenta uma solução completa de **Data Science** para predição da **cor (EBC)** do mosto frio do produto **AMST**, utilizando dados de processo em nível de lote (*batch-level*).
+# Heineken Case — Color (EBC) Prediction (AMST)
+
+This repo contains:
+- Reusable Python modules under `src/`
+- Artifacts folder (models/metrics)
+- Notebooks folder (add your notebooks here)
+
+## Suggested notebook order
+1. 01_eda_heineken.ipynb
+2. 02_modeling_baseline.ipynb
+3. 03_modeling_advanced.ipynb
+4. 04_error_analysis_and_improvements.ipynb
