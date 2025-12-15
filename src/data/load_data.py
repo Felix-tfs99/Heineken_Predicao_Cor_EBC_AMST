@@ -5,7 +5,7 @@ from ..config import DATE_COL, PRODUCT_COL, PRODUCT_VALUE, TARGET_COL
 
 def load_dataset(csv_path: str) -> pd.DataFrame:
     """
-    Carrega o dataset bruto a partir de um arquivo CSV e faz o parse da coluna de data/hora.
+    Carrega o dataset bruto a partir de um CSV e faz parse da coluna de data/hora.
 
     Parâmetros
     ----------
@@ -15,8 +15,8 @@ def load_dataset(csv_path: str) -> pd.DataFrame:
     Retorna
     -------
     pd.DataFrame
-        DataFrame com os dados carregados. Se a coluna DATE_COL existir, será convertida
-        para datetime (valores inválidos viram NaT).
+        DataFrame com os dados carregados. Se DATE_COL existir, é convertida para datetime
+        (valores inválidos viram NaT).
     """
     df = pd.read_csv(csv_path)
     if DATE_COL in df.columns:
@@ -26,24 +26,24 @@ def load_dataset(csv_path: str) -> pd.DataFrame:
 
 def filter_product(df: pd.DataFrame, product: str = PRODUCT_VALUE) -> pd.DataFrame:
     """
-    Filtra o DataFrame para manter apenas os registros do produto especificado.
+    Filtra o DataFrame para manter apenas registros do produto especificado.
 
     Parâmetros
     ----------
     df : pd.DataFrame
         DataFrame de entrada.
     product : str, default=PRODUCT_VALUE
-        Valor do produto a ser filtrado (ex.: "AMST").
+        Valor do produto (ex.: "AMST").
 
     Retorna
     -------
     pd.DataFrame
-        DataFrame filtrado (cópia), contendo apenas o produto selecionado.
+        DataFrame filtrado (cópia).
 
     Levanta
     -------
     ValueError
-        Se a coluna de produto (PRODUCT_COL) não existir no DataFrame.
+        Se PRODUCT_COL não existir.
     """
     if PRODUCT_COL not in df.columns:
         raise ValueError(f"Coluna ausente no dataset: {PRODUCT_COL}")
@@ -52,12 +52,10 @@ def filter_product(df: pd.DataFrame, product: str = PRODUCT_VALUE) -> pd.DataFra
 
 def basic_cleaning(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Executa uma limpeza básica e padronizada, reaproveitada entre notebooks.
-
-    Regras aplicadas:
-    - remove linhas com target nulo
-    - remove valores negativos do target (quando não fazem sentido)
-    - ordena temporalmente pela coluna de data/hora (se existir)
+    Limpeza básica padronizada:
+    - remove target nulo
+    - remove target negativo (quando não faz sentido)
+    - ordena pelo tempo (se DATE_COL existir)
 
     Parâmetros
     ----------
@@ -67,12 +65,12 @@ def basic_cleaning(df: pd.DataFrame) -> pd.DataFrame:
     Retorna
     -------
     pd.DataFrame
-        DataFrame limpo e, quando aplicável, ordenado por data/hora.
+        DataFrame limpo e ordenado (quando aplicável).
 
     Levanta
     -------
     ValueError
-        Se a coluna alvo (TARGET_COL) não existir no DataFrame.
+        Se TARGET_COL não existir.
     """
     if TARGET_COL not in df.columns:
         raise ValueError(f"Coluna alvo ausente no dataset: {TARGET_COL}")
@@ -88,22 +86,17 @@ def basic_cleaning(df: pd.DataFrame) -> pd.DataFrame:
 
 def load_amst_clean(csv_path: str) -> pd.DataFrame:
     """
-    Função utilitária (conveniência): carrega o CSV, filtra AMST e aplica limpeza básica.
-
-    Fluxo:
-    1) load_dataset
-    2) filter_product (AMST)
-    3) basic_cleaning
+    Função utilitária: carrega CSV → filtra AMST → aplica limpeza básica.
 
     Parâmetros
     ----------
     csv_path : str
-        Caminho para o arquivo CSV.
+        Caminho do arquivo CSV.
 
     Retorna
     -------
     pd.DataFrame
-        DataFrame do produto AMST já limpo e preparado para EDA/modelagem.
+        DataFrame do produto AMST pronto para EDA/modelagem.
     """
     df = load_dataset(csv_path)
     df = filter_product(df, product=PRODUCT_VALUE)
